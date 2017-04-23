@@ -51,13 +51,20 @@ def replace_nav_links(query):
             pass
 
 
-def modify_string(citem, injected_character=INJECTED_CHARACTER):
+def modify_string(citem):
     if not len(citem.split()) >= 6:
         return citem
     processed = []
-    for i, w in enumerate(citem.split()):
-        if i % 6 == 0:
-            w = w + injected_character
+    for w in citem.split():
+        if len(w) >= 6:
+            w = modify_word(w)
         processed.append(w)
     string_with_injected = ' '.join(processed)
     return NavigableString(string_with_injected)
+
+
+def modify_word(word, injected_character=INJECTED_CHARACTER):
+    if word[-1] in ('.', ',', '"', '-'):
+        return word.split(word[-1])[0] + INJECTED_CHARACTER + word[-1]
+    word += injected_character
+    return word
