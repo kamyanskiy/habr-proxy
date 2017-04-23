@@ -1,0 +1,20 @@
+.idea
+/local
+.venv
+.env
+
+# ignore virtualenv (in the root)
+/bin
+/share
+/.Python
+/.python-version
+/build
+/build-*
+/include
+/lib64
+/lib
+/man
+/local
+db.sqlite3
+
+*.pyc
