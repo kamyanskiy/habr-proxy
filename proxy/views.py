@@ -23,7 +23,6 @@ def modify_content(content):
     soup = BeautifulSoup(content, "html.parser")
     if soup:
         modify_text_in_query(soup.find_all(class_='post__title'))
-        modify_text_in_query(soup.find_all(class_='post__title_link'))
         modify_text_in_query(soup.find_all(class_='content html_format'))
         replace_nav_links(soup.find_all('a'))
         replace_nav_links(soup.find_all('link'))
@@ -35,11 +34,9 @@ def modify_text_in_query(query):
         if len(item.contents) > 0:
             new_item_contents = []
             for citem in item.contents:
-                if (isinstance(citem, NavigableString) and \
-                                len(citem.split()) > 6):
+                if isinstance(citem, NavigableString):
                     citem = modify_string(citem)
-
-                if citem.name in ('p', 'span') and len(citem.text.split()) > 6:
+                if citem.name in ('p', 'span', 'a', 'ul'):
                     citem.string = modify_string(citem.text)
                 new_item_contents.append(citem)
             item.contents = new_item_contents
@@ -55,6 +52,8 @@ def replace_nav_links(query):
 
 
 def modify_string(citem, injected_character=INJECTED_CHARACTER):
+    if not len(citem.split()) >= 6:
+        return citem
     processed = []
     for i, w in enumerate(citem.split()):
         if i % 6 == 0:
