@@ -13,4 +13,4 @@ $ pip install -r requirements.txt
 $ python manage.py runserver
 
 Result:
-[Result](./res.png)
+![Result](./res.png)
