@@ -64,6 +64,6 @@ def modify_string(citem):
 
 def modify_word(word, injected_character=INJECTED_CHARACTER):
     if word[-1] in ('.', ',', '"', '-'):
-        return word.split(word[-1])[0] + INJECTED_CHARACTER + word[-1]
+        return word[:-1] + INJECTED_CHARACTER + word[-1]
     word += injected_character
     return word
