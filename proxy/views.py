@@ -23,6 +23,7 @@ def modify_content(content):
     soup = BeautifulSoup(content, "html.parser")
     if soup:
         modify_text_in_query(soup.find_all(class_='post__title'))
+        modify_text_in_query(soup.find_all(class_='post__title_link'))
         modify_text_in_query(soup.find_all(class_='content html_format'))
         replace_nav_links(soup.find_all('a'))
         replace_nav_links(soup.find_all('link'))
