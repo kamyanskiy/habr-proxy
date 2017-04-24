@@ -21,6 +21,7 @@ def index(request):
 
 def modify_content(content):
     soup = BeautifulSoup(content, "html.parser")
+    modify_text_in_query(soup.find_all('title'))
     modify_text_in_query(soup.find_all(class_='post__title'))
     modify_text_in_query(soup.find_all(class_='content html_format'))
     replace_nav_links(soup.find_all('a'))
@@ -35,7 +36,7 @@ def modify_text_in_query(query):
             for citem in item.contents:
                 if isinstance(citem, NavigableString):
                     citem = modify_string(citem)
-                if citem.name in ('p', 'span', 'a', 'ul'):
+                if citem.name in ('p', 'span', 'ul'):
                     citem.string = modify_string(citem.text)
                 new_item_contents.append(citem)
             item.contents = new_item_contents
@@ -48,6 +49,8 @@ def replace_nav_links(query):
                 item['href'] = item['href'].replace(site, local_site)
         except KeyError:
             pass
+    modify_text_in_query(query)
+
 
 
 def modify_string(citem):
