@@ -52,7 +52,6 @@ def replace_nav_links(query):
     modify_text_in_query(query)
 
 
-
 def modify_string(citem):
     if not len(citem.split()) >= 6:
         return citem
